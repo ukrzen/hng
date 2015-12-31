@@ -17,7 +17,7 @@ $(function(){
         {
            sounds[letter].push( new Howl({
                 urls: ["samples/" + letter + "0" + i + ".wav.mp3",
-                    "samples/" + letter  + "0" + i +  "03.wav.ogg"]
+                    "samples/" + letter  + "0" + i +  ".wav.ogg"]
 
                    ,onend:function(){
 
@@ -25,17 +25,27 @@ $(function(){
         }
 
     });
-    $(".note").on("mousedown touchstart",function(){
+    $(".note").on("touchstart",function() {
+        $(this).attr("class", "note active");
+    });
+    $(".note").on("touchend",function() {
+        $(this).attr("class", "note");
+    });
+    $(".note").on("mousedown touchend",function(){
 
 //        $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
         var sound = sounds[letter][Math.floor(Math.random()*9 )+1];
-        sound.stop();
+        for(var i=1;i<= 9;i++)
+        {
+            sounds[letter][i].stop());
+        }
+
         sound.play();
 
 //        setTimeout(function(){
 //            $(".note[data-note='" + letter +"']" ).attr("class","note");
-//        },2000);
+//        },300);
     })
 })
 </script>
@@ -95,7 +105,7 @@ $(function(){
         filter:url("#blur");
 
     }
-    .note:active
+    .note:active,.note.active
     {
         filter:url("#veryblur");
     }
