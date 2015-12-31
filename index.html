@@ -25,7 +25,7 @@ $(function(){
         }
 
     });
-    $(".note").on("click touchdown",function(){
+    $(".note").on("mousedown touchstart",function(){
 
 //        $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
@@ -46,6 +46,7 @@ $(function(){
     html {
         -ms-touch-action: manipulation;
         touch-action: manipulation;
+        -webkit-tap-highlight-color:transparent;
     }
     body
     {
