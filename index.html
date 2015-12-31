@@ -31,7 +31,7 @@ $(function(){
     $(".note").on("touchend",function() {
         $(this).attr("class", "note");
     });
-    $(".note").on("click",function(){
+    $(".note").on("touchstart mousedown",function(event){
 
 //        $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
@@ -42,7 +42,7 @@ $(function(){
         }
 
         sound.play();
-
+        event.preventDefault();
 //        setTimeout(function(){
 //            $(".note[data-note='" + letter +"']" ).attr("class","note");
 //        },300);
