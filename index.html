@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
+<meta name="viewport" content="width=device-width, user-scalable=no">
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="./assets/howler.js"></script>
 <script>
@@ -24,7 +25,7 @@ $(function(){
         }
 
     });
-    $(".note").on("click",function(){
+    $(".note").on("click touchdown",function(){
 
 //        $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
@@ -39,6 +40,13 @@ $(function(){
 })
 </script>
 <style>
+    *{
+        -webkit-touch-callout: none;
+    }
+    html {
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+    }
     body
     {
         margin:0px;
