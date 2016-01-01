@@ -5,7 +5,7 @@ $(function(){
     var preloadedImages=images.length;
     var readyToPlay=false;
     function checkReadyToPlay(){
-        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=1)
+        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=2)
         {
             $(".not-ready").removeClass("not-ready");
             $("svg").attr("class","");
@@ -55,7 +55,7 @@ $(function(){
         });
 
     }
-    var currentLayer=0;
+    var currentLayer=1;
     function loadNextLayer(){
           currentLayer+=1;
         if(currentLayer < 12)
@@ -71,7 +71,7 @@ $(function(){
     });
     $(".note").on("touchstart mousedown",function(event){
 
-        $(this).attr("class","note pulse");
+     //   $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
         var sound = sounds[letter][Math.floor(Math.random()*sounds[letter].length )];
         for(var i=0;i< sounds[letter].length;i++)
@@ -83,7 +83,7 @@ $(function(){
         event.preventDefault();
         setTimeout(function(){
             $(".note[data-note='" + letter +"']" ).attr("class","note");
-        },1000);
+        },1500);
 
     });
     $("body").on("keydown",function(evt){
