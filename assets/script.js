@@ -5,7 +5,7 @@ $(function(){
     var preloadedImages=images.length;
     var readyToPlay=false;
     function checkReadyToPlay(){
-        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=5)
+        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=3)
         {
             $(".not-ready").removeClass("not-ready");
             $("svg").attr("class","");
@@ -57,6 +57,7 @@ $(function(){
     }
     var currentLayer=3;
     function loadNextLayer(){
+        checkReadyToPlay();
           currentLayer+=1;
         if(currentLayer < 12)
           loadSoundLayer(currentLayer,loadNextLayer);
@@ -78,7 +79,7 @@ $(function(){
         {
             sounds[letter][i].stop();
         }
-        console.log(sound)
+        //console.log(sound)
         sound.play();
         event.preventDefault();
         setTimeout(function(){
@@ -107,10 +108,10 @@ $(function(){
 
         }
     });
-    var ACCELEROMETER_SAMPLES= 30,REJECT_SAMPLES=15,
+    var ACCELEROMETER_SAMPLES= 30,REJECT_SAMPLES=15;
     var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
     var power = 0;
-    $(".note").on("touchstart",function() {
+    $("body").on("touchstart",function() {
         if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
         alert(power);
         counter = 0;
@@ -119,7 +120,7 @@ $(function(){
 
     window.ondevicemotion = function(event) {
         var x = event.accelerationIncludingGravity.x;
-        var t = event.accelerationIncludingGravity.y;
+        var y = event.accelerationIncludingGravity.y;
         var z = event.accelerationIncludingGravity.z;
         var a= z;
         y = 0.3 * (y + a - x);
@@ -128,7 +129,7 @@ $(function(){
         if(counter > ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;  //анализ завершен
         if(counter++ > 100) return; //проверяем диапазон "отдыха" анализатора
         a = Math.abs(y); // не заморачиваемся знаком ускорения :)
-        var power += a; // интегрируем
+         power += a; // интегрируем
         if(counter == ACCELEROMETER_SAMPLES) {
             power *= 1.5; // масштабируем скорость
             console.log(power);
