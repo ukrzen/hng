@@ -108,39 +108,39 @@ $(function(){
 
         }
     });
-    var ACCELEROMETER_SAMPLES= 25,REJECT_SAMPLES=3;
-    var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
-    var power = 0,x= 0,y=0;
-    $("body").on("touchend",function() {
-        if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
-        alert(power);
-        counter = 0;
-        power = 0;
-    });
-
-    window.ondevicemotion = function(event) {
-
-        var z = event.accelerationIncludingGravity.z;
-        y = filterFactorSlider.value * (y + a - x);
-        x = a;
-
-        x0 = a;
-
-        y0 = -0.5792*x1 + 0.5792*x0 - 0.1584*y1;
-
-        y1 = y0;
-
-        x1 = x0;
-
-
-        if(counter > ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;  //анализ завершен
-        if(counter++ > ACCELEROMETER_SAMPLES -1 ) return; //проверяем диапазон "отдыха" анализатора
-        a = Math.abs(y0); // не заморачиваемся знаком ускорения :)
-         power += a; // интегрируем
-        if(counter == ACCELEROMETER_SAMPLES) {
-            power *=Math.pow(power, 1)*1;
-            ; // масштабируем скорость
-            console.log(power);
-        }
-    }
+    //var ACCELEROMETER_SAMPLES= 25,REJECT_SAMPLES=3;
+    //var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
+    //var power = 0,x= 0,y= 0,x0= 0,y1= 0,x1= 0;
+    //$("body").on("touchend",function() {
+    //    if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
+    //    alert(power);
+    //    counter = 0;
+    //    power = 0;
+    //});
+    //
+    //window.ondevicemotion = function(event) {
+    //
+    //    var z = event.accelerationIncludingGravity.z;
+    //    y = filterFactorSlider.value * (y + a - x);
+    //    x = a;
+    //
+    //    x0 = a;
+    //
+    //    y0 = -0.5792*x1 + 0.5792*x0 - 0.1584*y1;
+    //
+    //    y1 = y0;
+    //
+    //    x1 = x0;
+    //
+    //
+    //    if(counter > ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;  //анализ завершен
+    //    if(counter++ > ACCELEROMETER_SAMPLES -1 ) return; //проверяем диапазон "отдыха" анализатора
+    //    a = Math.abs(y0); // не заморачиваемся знаком ускорения :)
+    //     power += a; // интегрируем
+    //    if(counter == ACCELEROMETER_SAMPLES) {
+    //        power *=Math.pow(power, 1)*1;
+    //        ; // масштабируем скорость
+    //        console.log(power);
+    //    }
+    //}
 });

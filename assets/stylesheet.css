@@ -27,7 +27,8 @@ body
     padding:0px;
     background-color:black;
     font-family:'Open Sans Condensed';
-
+    width:100vw;
+    height:100vh;
 }
 svg
 {
@@ -87,11 +88,11 @@ svg
 }
 .note.lighter
 {
-    fill:url(#lighter-grad);
+    fill:url('#lighter-grad');
 }
 .note
 {
-    fill:url(#rgrad);
+    fill:url('#rgrad');
     transition:all 0.4s ease;
     cursor:pointer;
     filter:url("#blur");
@@ -101,8 +102,8 @@ svg
 
 .note:active,.note.active,.note:focus
 {
-    fill:url(#ygrad);
-    filter:url("#hover");
+    fill:url('#ygrad');
+    filter:url('#hover');
 }
 .loading
 {
@@ -158,6 +159,10 @@ footer
 }
 @media screen and (max-width: 640px){
     footer
+    {
+        display:none;
+    }
+    .social-buttons
     {
         display:none;
     }
