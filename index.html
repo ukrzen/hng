@@ -1,16 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <title>Ханг (онлайн)</title>
+    <meta name="Description" content="Ханг hang drum online"/>
+    <meta name="Keywords" content="hang frum hang online "/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Перекладач на мову R2-D2 "/>
+    <meta property="og:description" content="Напишіть будь-що і почуйте написане мовою дроїда R2-D2"/>
+    <meta property="og:url" content="http://hng.ukrzen.in.ua/"/>
+    <meta property="og:image" content="http://hng.ukrzen.in.ua/assets/preview.jpg?v2"/>
+    <meta property="og:image:type" content="image/jpeg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="700"/>
+    <meta property="og:site_name" content="Перекладач на мову R2-D2 "/>
+    <meta name="twitter:card" content="Перекладач на мову R2-D2"/>
+    <meta name="twitter:title" content="Перекладач на мову R2-D2"/>
+    <meta name="twitter:description" content="Перекладач на мову R2-D2"/>
+
+    <meta name="twitter:domain" content="http://hng.ukrzen.in.ua/"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+    <!--<script src="assets/zepto.touch.js"></script>-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link href='assets/stylesheet.css' rel='stylesheet' type='text/css'>
+
+    <meta name="apple-mobile-web-app-title" content="Перекладач на мову R2-D2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script src="assets/howler.js"></script>
+    <script src="assets/script.js"></script>
+
+    <link href="favicon.png" rel="shortcut icon" type="image/png"/>
+
+
 </head>
-<meta name="viewport" content="width=device-width, user-scalable=no">
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="./assets/howler.js"></script>
-<script src="./assets/script.js"></script>
-<link crossorigin="anonymous" href="assets/style.css" media="all" rel="stylesheet" />
 <body>
-<svg class="loading"
+
+
+<div class="content">
+
+
+    <div class="container ">
+        <div class="container-bg not-ready"></div>
+        <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -55,16 +89,16 @@
          id="path3506" /></clipPath></defs>
     <image
      xlink:href="assets/hang.png"  x="10"
-     y="0"
+     y="-10"
      width="100%"
      height="100%" preserveAspectRatio="xMidYMid slice"></image>
      <radialGradient id="rgrad" cx="50%" cy="50%" r="75%" >
         <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.4" />
         <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0.001" />
     </radialGradient>
-    <radialGradient id="lighter-grad" cx="50%" cy="50%" r="75%" >
-        <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.5" />
-        <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0.001" />
+    <radialGradient id="ygrad" cx="50%" cy="50%" r="95%" >
+        <stop offset="0%" style="stop-color:rgb(251,236,186);stop-opacity:0.6" />
+        <stop offset="100%" style="stop-color:rgb(251,236,186);stop-opacity:0.001" />
     </radialGradient>
     <filter id="blur">
         <feGaussianBlur stdDeviation="3"/>
@@ -76,7 +110,7 @@
         <feGaussianBlur in="SourceGraphic" stdDeviation="3">
             <animate
                     attributeName="stdDeviation"
-                    dur="0.5s"
+                    dur="1s"
                     from="3"
                     to="10"
                     repeatCount="indefinite"
@@ -124,12 +158,43 @@
      class="note" data-note="H"  data-key="V"  /></g>
 
 </svg>
-<img id="preloader" src="assets/bgc.png">
-<div class="container not-ready">
-    <div class="hang">  </div>
+    </div>
+
+    <div class="share-buttons">
+        <span class='st_facebook_large' displayText='Facebook'></span>
+        <span class='st_googleplus_large' displayText='Google +'></span>
+        <span class='st_twitter_large' displayText='Tweet'></span>
+        <span class='st_vkontakte_large' displayText='Vkontakte'></span>
+    </div>
+    <footer>
+        Семпли: <a href="http://www.r2d2translator.com" target="_blank">darkarps.com</a>
+        <br>
+        &nbsp; Львів - 2016.  <a class="email" href="mailto:h.ukrzen+r2d2@gmail.com" target="_blank"> Михайло</a>  <a href="https://twitter.com/ukrzen" target="_blank" class="twitter-follow-button email" data-show-count="false"></a> <a href="https://www.facebook.com/pages/Ukrzen-In-Ua/643709062402196" target="_blank" class="fb-button email" data-show-count="false"></a>
+
+    </footer>
+
 </div>
-
-
-
 </body>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-57748128-6', 'auto', {'allowLinker': true});
+    ga('require', 'linker');
+    ga('require', 'displayfeatures');
+
+    ga('send', 'pageview');
+</script>
+
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({
+    publisher: "464d90da-aa5d-4761-b8ef-21e1b0bbd8f3",
+    doNotHash: false,
+    doNotCopy: false,
+    hashAddressBar: false
+});</script>
+
 </html>
+

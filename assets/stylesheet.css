@@ -1,4 +1,4 @@
-#preloader
+.preload
 {
     left:-10000px;
     top:-10000px;
@@ -18,7 +18,7 @@ body
     margin:0px;
     padding:0px;
     background:black;
-
+    font-family:'Open Sans Condensed';
 }
 svg
 {
@@ -40,15 +40,25 @@ svg
         margin-left:
     }
 }
+.container-bg
+{
+    background-image:url(bgc.png) ;
+    background-size:cover;
+    opacity: 1;
+    position:absolute;
+    left:0px;
+    top:0px;
+ width:100vw;
+    height:100vh;
+    z-index:-1;
+}
 .container
 {
 
-    background-image:url(bgc.jpg) ;
-    background-size:cover;
+
     height: 100vh;
     width: 100vw;
-    opacity: 1;
-    text-align:center;
+    position:relative;
     display: flex;
     justify-content: center;
     display: flex;
@@ -59,6 +69,7 @@ svg
 .note:hover
 {
     opacity:0.9;
+
 }
 .note.lighter
 {
@@ -71,10 +82,12 @@ svg
     cursor:pointer;
     filter:url("#blur");
 
+
 }
 
 .note:active,.note.active,.note:focus
 {
+    fill:url(#ygrad);
     filter:url("#hover");
 }
 .loading
@@ -88,7 +101,7 @@ svg
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.container
+.container-bg
 {
     -webkit-transform: translateZ(0);
     -webkit-transition: opacity 2s ease-in-out;
@@ -97,7 +110,34 @@ svg
     -o-transition: opacity 2s ease-in-out;
 
 }
-.container.not-ready
+.container-bg.not-ready
 {
     opacity:0 !important;
+}
+footer a
+{
+    text-decoration:none;
+    color: white;
+}
+
+footer
+{
+    width: 100%;
+    color: white;
+    position: fixed;
+    bottom: 25px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: right;
+    font-size:12px;
+    opacity: 0.6;
+    right: 20px;
+}
+.share-buttons {
+    float: left;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    opacity: 0.3;
+    -webkit-filter: saturate(20%);
 }
