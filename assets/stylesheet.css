@@ -24,6 +24,10 @@ svg
 {
     margin-left: 20px;
 }
+.loading image
+{
+    display:none;
+}
 @media screen and (orientation: landscape) {
     svg {
 
@@ -40,17 +44,17 @@ svg
         margin-left:
     }
 }
-.container-bg
+.container
 {
     background-image:url(bgc.png) ;
     background-size:cover;
-    opacity: 1;
-    position:absolute;
-    left:0px;
-    top:0px;
- width:100vw;
-    height:100vh;
-    z-index:-1;
+
+    /*position:absolute;*/
+    /*left:0px;*/
+    /*top:0px;*/
+    /*width:100vw;*/
+    /*height:100vh;*/
+    /*z-index:-1;*/
 }
 .container
 {
@@ -101,16 +105,17 @@ svg
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.container-bg
+.container
 {
     -webkit-transform: translateZ(0);
     -webkit-transition: opacity 2s ease-in-out;
     -moz-transition: opacity 2s ease-in-out;
     -ms-transition: opacity 2s ease-in-out;
     -o-transition: opacity 2s ease-in-out;
+    opacity:1;
 
 }
-.container-bg.not-ready
+.container.not-ready
 {
     opacity:0 !important;
 }

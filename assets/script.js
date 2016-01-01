@@ -7,7 +7,7 @@ $(function(){
     function checkReadyToPlay(){
         if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=1)
         {
-            $(".container-bg").removeClass("not-ready");
+            $(".not-ready").removeClass("not-ready");
             $("svg").attr("class","");
             readyToPlay=true;
         }
