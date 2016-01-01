@@ -11,6 +11,23 @@
 $(function(){
     var NOTES="ABCDEFGH";
     var sounds={};
+    $("body").on("keydown",function(evt){
+        evt = evt || window.event;
+        var charCode = evt.which || evt.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var el=$(".note[data-key='" + charStr.toUpperCase() + "']");
+        if(el.length)
+        {
+            el.trigger("mousedown");
+        }
+    })
+    $("#preloader").on("load",function(){
+        $(".container").removeClass("not-ready");
+        $("svg").attr("class","");
+        $("#preloader").remove();
+        $("svg").appendTo(".container");
+    });
+
     NOTES.split("").forEach(function (letter) {
         sounds[letter] =[];
         for(var i=3;i<= 9;i++)
@@ -33,7 +50,7 @@ $(function(){
     });
     $(".note").on("touchstart mousedown",function(event){
 
-//        $(this).attr("class","note pulse");
+        $(this).attr("class","note pulse");
         var letter = $(this).attr("data-note");
         var sound = sounds[letter][Math.floor(Math.random()*6 )];
         for(var i=0;i< 6;i++)
@@ -43,13 +60,19 @@ $(function(){
 
         sound.play();
         event.preventDefault();
-//        setTimeout(function(){
-//            $(".note[data-note='" + letter +"']" ).attr("class","note");
-//        },300);
+        setTimeout(function(){
+            $(".note[data-note='" + letter +"']" ).attr("class","note");
+        },600);
     })
 })
 </script>
 <style>
+    .preloader
+    {
+        left:-10000px;
+        position:absolute;
+
+    }
     *{
         -webkit-touch-callout: none;
     }
@@ -62,7 +85,7 @@ $(function(){
     {
         margin:0px;
         padding:0px;
-        background:black;
+        background:white;
 
     }
     .container
@@ -72,7 +95,7 @@ $(function(){
         background-image:url(assets/bg.jpg) ;
         background-size:cover;
         background-repeat: no-repeat;
-
+        transform-origin: 50% 44% 0;
         /*position:fixed;*/
         height: 0;             /* collapse the container's height */
         width: 100vw;    /* specify any width you want (a percentage value, basically) */
@@ -80,6 +103,7 @@ $(function(){
         /* this formula makes sure the aspect ratio of the container equals that of the svg graphic */
         padding-top:56.2vw;
         position: relative;    /* create positioning context for svg */
+        opacity: 1;
 
     }
 
@@ -96,7 +120,11 @@ $(function(){
     {
        opacity:0.9;
     }
+    .lighter.note
+    {
 
+        fill:url(#lighter-grad);
+    }
     .note
     {
         fill:url(#rgrad);
@@ -105,54 +133,88 @@ $(function(){
         filter:url("#blur");
 
     }
-    .note:active,.note.active
-    {
-        filter:url("#veryblur");
-    }
+
     @-webkit-keyframes pulse {
-        0% {    fill:rgba(255,255,255,0.1); }
-        50% {   fill:rgba(255,255,255,0.3); }
-        100% {   fill:rgba(255,255,255,0.1); }
+        0% {    filter:url("#blur"); }
+        50% {   filter:url("#veryblur"); }
+        100% {   filter:url("#blur"); }
     }
     @keyframes pulse {
-        0% {    fill:rgba(255,255,255,0.1); }
-        50% {   fill:rgba(255,255,255,0.3); }
-        100% {   fill:rgba(255,255,255,0.1); }
+        0% {    filter:url("#blur"); }
+        50% {   filter:url("#veryblur"); }
+        100% {   filter:url("#blur"); }
     }
-
-    .note.pulse {
-
-        -webkit-animation-name: pulse;
-        animation-name: pulse;
-
-        -webkit-animation-duration: 1s;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-timing-function: ease-out;
-        -webkit-animation-fill-mode: forwards;
-
-
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-out;
+    .note:active,.note.active,.note:focus
+    {
+       filter:url("#hover");
     }
+    .loading
+    {
+        -webkit-animation:spin 3s linear infinite;
+        -moz-animation:spin 3s linear infinite;
+        animation:spin 3s linear infinite;
+        opacity:0.5;
+    }
+    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+    .container
+    {
+        -webkit-transform: translateZ(0);
+        -webkit-transition: opacity 2s ease-in-out;
+        -moz-transition: opacity 2s ease-in-out;
+        -ms-transition: opacity 2s ease-in-out;
+        -o-transition: opacity 2s ease-in-out;
+
+    }
+    .container.not-ready
+    {
+        opacity:0 !important;
+    }
+    .note.pulse
+    {
+        filter:url("#hover");
+    }
+    /*.note.pulse {*/
+
+        /*-webkit-animation-name: pulse;*/
+        /*animation-name: pulse;*/
+
+        /*-webkit-animation-duration: 1s;*/
+        /*-webkit-animation-iteration-count: infinite;*/
+        /*-webkit-animation-timing-function: ease-out;*/
+        /*-webkit-animation-fill-mode: forwards;*/
+
+
+        /*animation-duration: 1s;*/
+        /*animation-iteration-count: infinite;*/
+        /*animation-timing-function: ease-out;*/
+    /*}*/
 </style>
 <body>
-<div class="container">
+<div class="container not-ready">
+
+    <img id="preloader" src="assets/bg.jpg">
 
 
-
-    <svg
+</div>
+<svg class="loading"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    version="1.1"
-preserveAspectRatio="xMidYMid slice""
+preserveAspectRatio="xMidYMid slice"
    viewBox="0 0 1366 768"
    id="svg3416"
    xml:space="preserve">
     <radialGradient id="rgrad" cx="50%" cy="50%" r="75%" >
+        <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.4" />
+        <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0.001" />
+    </radialGradient>
+    <radialGradient id="lighter-grad" cx="50%" cy="50%" r="75%" >
         <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0.5" />
         <stop offset="100%" style="stop-color:rgb(255,255,255);stop-opacity:0.001" />
     </radialGradient>
@@ -162,6 +224,18 @@ preserveAspectRatio="xMidYMid slice""
     <filter id="veryblur">
         <feGaussianBlur stdDeviation="5"/>
     </filter>
+    <filter id="hover">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3">
+            <animate
+                    attributeName="stdDeviation"
+                    dur="0.5s"
+                    from="3"
+                    to="10"
+                    repeatCount="indefinite"
+                    />
+        </feGaussianBlur>
+
+    </filter>
     <metadata
      id="metadata3422"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
@@ -170,61 +244,60 @@ preserveAspectRatio="xMidYMid slice""
        id="clipPath3434"><path class="note pulse"
          d="m 0.5114843,0.6698008 c 0.0377012,0 0.0682657,-0.0547819 0.0682657,-0.1223569 0,-0.067575 -0.0305645,-0.1223535 -0.0682657,-0.1223535 -0.0377011,0 -0.0682657,0.0547785 -0.0682657,0.1223535 0,0.067575 0.0305646,0.1223569 0.0682657,0.1223569 z"
          id="path3436" /></clipPath><clipPath
-       id="clipPath3444"><path class="note" 
+       id="clipPath3444"><path class="note"
          d="M 0.4500678,0.917267 C 0.4764676,0.9339648 0.507271,0.9004895 0.5188693,0.8424969 0.5304693,0.7845043 0.5184716,0.7239584 0.4920719,0.7072605 0.4656739,0.6905594 0.4348705,0.7240348 0.4232723,0.7820273 0.4116722,0.8400199 0.4236699,0.9005691 0.4500678,0.917267 z"
          id="path3446" /></clipPath><clipPath
-       id="clipPath3454"><path class="note" 
+       id="clipPath3454"><path class="note"
          d="M 0.3696737,0.7282549 C 0.4032979,0.6978707 0.4214428,0.6313582 0.410203,0.5796941 0.3989633,0.5280301 0.3625931,0.5107777 0.3289689,0.5411619 0.2953466,0.5715428 0.2771998,0.6380553 0.2884415,0.6897193 0.2996813,0.7413867 0.3360496,0.7586391 0.3696737,0.7282549 z"
          id="path3456" /></clipPath><clipPath
-       id="clipPath3464"><path class="note" 
+       id="clipPath3464"><path class="note"
          d="M 0.3769112,0.4325977 C 0.3971357,0.4153387 0.4030141,0.3623365 0.390042,0.3142152 0.3770698,0.2660939 0.3501586,0.2410754 0.329934,0.2583344 0.3097095,0.2755934 0.3038311,0.3285955 0.3168032,0.3767168 0.3297754,0.4248381 0.3566866,0.4498566 0.3769112,0.4325977 z"
          id="path3466" /></clipPath><clipPath
-       id="clipPath3474"><path class="note" 
+       id="clipPath3474"><path class="note"
          d="M 0.479768,0.3092248 C 0.4991282,0.2898807 0.5033732,0.2379277 0.4892512,0.1931799 0.4751291,0.1484354 0.4479845,0.1278428 0.4286261,0.1471869 0.4092659,0.1665311 0.405019,0.218484 0.419143,0.2632318 0.433265,0.3079764 0.4604078,0.3285689 0.479768,0.3092248 z"
          id="path3476" /></clipPath><clipPath
-       id="clipPath3484"><path class="note" 
+       id="clipPath3484"><path class="note"
          d="M 0.5634457,0.3336955 C 0.585621,0.3562039 0.6170312,0.3325533 0.6336043,0.2808693 0.6501775,0.229182 0.6456375,0.1690379 0.6234622,0.1465262 0.6012888,0.1240178 0.5698767,0.1476684 0.5533036,0.1993523 0.5367305,0.2510396 0.5412704,0.3111838 0.5634457,0.3336955 z"
          id="path3486" /></clipPath><clipPath
-       id="clipPath3494"><path class="note" 
+       id="clipPath3494"><path class="note"
          d="M 0.6559327,0.8298797 C 0.6819218,0.8177904 0.6961484,0.7614215 0.6877069,0.7039734 0.6792654,0.6465287 0.6513516,0.6097596 0.6253626,0.6218521 0.5993735,0.6339414 0.5851469,0.6903104 0.5935884,0.7477584 0.6020299,0.8052031 0.6299417,0.8419723 0.6559327,0.8298797 z"
          id="path3496" /></clipPath><clipPath
-       id="clipPath3504"><path class="note" 
+       id="clipPath3504"><path class="note"
          d="M 0.6942462,0.5313836 C 0.722901,0.5027393 0.7352272,0.445009 0.7217791,0.4024326 0.7083309,0.3598596 0.6742008,0.3485672 0.6455479,0.3772115 0.616893,0.4058559 0.6045668,0.4635861 0.618015,0.5061592 0.6314631,0.5487355 0.6655932,0.5600279 0.6942462,0.5313836 z"
          id="path3506" /></clipPath></defs><g
      transform="matrix(1.25,0,0,-1.25,0,768)"
-     id="g3424"><path class="note" data-note="A"
+     id="g3424"><path class="note darker" data-note="A" data-key="G"
        d="m 307.47664,127.88785 a 53.271027,57.009346 0 1 1 -6.1e-4,-0.27364 l -53.27042,0.27364 z"
        transform="matrix(1.525902,0,0,-1.3231268,171.38908,504.03877)"
        id="path3753"
-        /><path class="note" data-note="B"
+        /><path class="note" data-note="B" data-key="T"
                 d="m 376.63552,195.17757 a 58.411217,44.859814 0 1 1 -6.7e-4,-0.21533 l -58.41055,0.21533 z"
        transform="matrix(0.34228481,-1.1782894,-1.2324155,-0.3272521,643.68061,937.09249)"
        id="path4545"
-        /><path class="note" data-note="C"
+        /><path class="note" data-note="C"  data-key="F"
                 d="m 285.04673,210.13084 a 44.859814,55.140186 0 1 1 -5.1e-4,-0.26466 l -44.8593,0.26466 z"
        transform="matrix(0.78825258,1.2258696,1.2175117,-0.79366374,-75.351772,259.73513)"
        id="path4547"
-        /><path class="note" data-note="D"
+        /><path class="note darker" data-note="D"  data-key="H"
                 d="m 676.6355,295.17758 a 56.542057,42.990654 0 1 1 -6.5e-4,-0.20635 l -56.54141,0.20635 z"
        transform="matrix(1.0472001,-0.7568964,-0.82097995,-0.96545839,336.02891,1029.5356)"
        id="path4549"
-        /><path class="note" data-note="E"
+        /><path class="note" data-note="E"  data-key="Y"
                 d="m 660.74768,98.448601 a 43.925232,54.672897 0 1 1 -5.1e-4,-0.262424 l -43.92472,0.262424 z"
        transform="matrix(1.2533083,-0.24417566,-0.25539216,-1.1982646,-39.982602,714.39814)"
        id="path4551"
-        /><path class="note" data-note="F"
+        /><path class="note darker" data-note="F"  data-key="B"
                 d="m 580.37383,371.81308 a 42.523365,53.271027 0 1 1 -4.9e-4,-0.2557 l -42.52288,0.2557 z"
        transform="matrix(1.0885356,0.66588548,0.67163772,-1.0792128,-182.07323,183.65462)"
        id="path4553"
-        /><path class="note" data-note="G"
+        /><path class="note" data-note="G"  data-key="C"
                 d="m 251.40187,292.37384 a 38.785046,51.401871 0 1 1 -4.5e-4,-0.24672 l -38.7846,0.24672 z"
        transform="matrix(1.0872621,-0.60695832,-0.64656408,-1.020661,331.86503,633.71616)"
        id="path4555"
-        /><path class="note" data-note="H"
+        /><path class="note" data-note="H"  data-key="V"
                 d="m 457.00933,390.50467 a 36.91589,46.728973 0 1 1 -4.2e-4,-0.22429 l -36.91547,0.22429 z"
        transform="matrix(1.1105064,-0.60677848,-0.63465158,-1.0617343,274.25584,803.19452)"
        id="path4557"
         /></g></svg>
-</div>
 </body>
 </html>
