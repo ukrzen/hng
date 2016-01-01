@@ -108,10 +108,10 @@ $(function(){
 
         }
     });
-    var ACCELEROMETER_SAMPLES= 10,REJECT_SAMPLES=5;
+    var ACCELEROMETER_SAMPLES= 25,REJECT_SAMPLES=3;
     var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
     var power = 0,x= 0,y=0;
-    $("body").on("touchstart",function() {
+    $("body").on("touchend",function() {
         if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
         alert(power);
         counter = 0;
@@ -121,16 +121,25 @@ $(function(){
     window.ondevicemotion = function(event) {
 
         var z = event.accelerationIncludingGravity.z;
-        var a= z;
-        y = 0.3 * (y + a - x);
+        y = filterFactorSlider.value * (y + a - x);
         x = a;
 
+        x0 = a;
+
+        y0 = -0.5792*x1 + 0.5792*x0 - 0.1584*y1;
+
+        y1 = y0;
+
+        x1 = x0;
+
+
         if(counter > ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;  //анализ завершен
-        if(counter++ > 100) return; //проверяем диапазон "отдыха" анализатора
-        a = Math.abs(y); // не заморачиваемся знаком ускорения :)
+        if(counter++ > ACCELEROMETER_SAMPLES -1 ) return; //проверяем диапазон "отдыха" анализатора
+        a = Math.abs(y0); // не заморачиваемся знаком ускорения :)
          power += a; // интегрируем
         if(counter == ACCELEROMETER_SAMPLES) {
-            power *= 1.5; // масштабируем скорость
+            power *=Math.pow(power, 1)*1;
+            ; // масштабируем скорость
             console.log(power);
         }
     }
