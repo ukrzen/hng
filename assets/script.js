@@ -108,9 +108,9 @@ $(function(){
 
         }
     });
-    var ACCELEROMETER_SAMPLES= 30,REJECT_SAMPLES=15;
+    var ACCELEROMETER_SAMPLES= 10,REJECT_SAMPLES=5;
     var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
-    var power = 0;
+    var power = 0,x= 0,y=0;
     $("body").on("touchstart",function() {
         if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
         alert(power);
@@ -119,8 +119,7 @@ $(function(){
     });
 
     window.ondevicemotion = function(event) {
-        var x = event.accelerationIncludingGravity.x;
-        var y = event.accelerationIncludingGravity.y;
+
         var z = event.accelerationIncludingGravity.z;
         var a= z;
         y = 0.3 * (y + a - x);
