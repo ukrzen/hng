@@ -33,6 +33,8 @@ $(function(){
     {
         var notes = NOTES.split("");
         var loadedNotes=notes.length;
+        if(layer< 10)
+        layer= "0" + layer;
         function countHandler()
         {
             loadedNotes--;
@@ -44,8 +46,8 @@ $(function(){
                sounds[letter] =[];
 
                 sounds[letter].push( new Howl({
-                    urls: ["samples/" + letter + "0" + layer + ".wav.mp3",
-                        "samples/" + letter  + "0" + layer +  ".wav.ogg"],
+                    urls: ["samples/" + letter  + layer + ".wav.mp3",
+                        "samples/" + letter  + layer +  ".wav.ogg"],
 
                     onload:countHandler,
                     onloaderror:countHandler}));
@@ -56,7 +58,7 @@ $(function(){
     var currentLayer=0;
     function loadNextLayer(){
           currentLayer+=1;
-        if(currentLayer < 9)
+        if(currentLayer < 12)
           loadSoundLayer(currentLayer,loadNextLayer);
     }
     loadNextLayer();
@@ -91,7 +93,18 @@ $(function(){
         var el=$(".note[data-key='" + charStr.toUpperCase() + "']");
         if(el.length)
         {
-            el.trigger("mousedown");
+            el.trigger("touchstart");
+        }
+    });
+    $("body").on("keyup",function(evt){
+        evt = evt || window.event;
+        var charCode = evt.which || evt.keyCode;
+        var charStr = String.fromCharCode(charCode);
+        var el=$(".note[data-key='" + charStr.toUpperCase() + "']");
+        if(el.length)
+        {
+            el.trigger("touchend")
+
         }
     });
 });
