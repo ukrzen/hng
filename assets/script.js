@@ -27,7 +27,7 @@ $(function(){
         img.addEventListener('load', loadHandler, false);
         img.addEventListener('error',loadHandler, false);
         img.src=url;
-        $(img).appendTo("body");
+        //$(img).appendTo("body");
     });
     function loadSoundLayer(layer,success)
     {
