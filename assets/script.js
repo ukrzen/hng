@@ -1,12 +1,17 @@
 $(function(){
     var NOTES="ABCDEFGH";
     var sounds={};
-    var images=["assets/background.jpg","assets/hang.png"];
+    var width = function(){
+        var dpi = window.devicePixelRatio ||1;
+        return parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi ;
+    };
+    var images=["https://lh3.googleusercontent.com/-XVMcX9Sx26I/Voe2e4WTvoI/AAAAAAAAAjc/9slfuMjOj1U/s" + width() +"-Ic42/background.jpg","assets/hang.png"];
     var preloadedImages=images.length;
     var readyToPlay=false;
     function checkReadyToPlay(){
         if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=3)
         {
+            $(".container").css("background-image","url(" + images[0] +")")
             $(".not-ready").removeClass("not-ready");
             $("svg").attr("class","");
             readyToPlay=true;
