@@ -57,7 +57,7 @@ svg
 }
 .container
 {
-    background-image:url(bgc.png) ;
+    background-image:url(background.jpg) ;
     background-size:cover;
 
     /*position:absolute;*/
@@ -87,7 +87,7 @@ svg
 
     -webkit-flex-direction: column;
     flex-direction: column;
-    justify-content: center;
+
 }
 
 .note:hover
@@ -172,7 +172,7 @@ footer
     {
         display:none;
     }
-    .social-buttons
+    .share-buttons
     {
         display:none;
     }
