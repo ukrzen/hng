@@ -1,6 +1,7 @@
 $(function(){
     var NOTES="ABCDEFGHZ";
     var sounds={};
+    var isTouch = "touchstart" in window;
     var width = function(){
         var dpi = window.devicePixelRatio ||1;
         return parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi ;
@@ -12,6 +13,9 @@ $(function(){
         }
         return array;
     }
+    document.body.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+    }, false);
     var images=["https://lh3.googleusercontent.com/-XVMcX9Sx26I/Voe2e4WTvoI/AAAAAAAAAjc/9slfuMjOj1U/s" + width() +"-Ic42/background.jpg","assets/hang.png"];
     var preloadedImages=images.length;
     var readyToPlay=false;
@@ -82,29 +86,40 @@ $(function(){
     }
     loadNextLayer();
 
-    $(".note").on("touchstart",function() {
-        $(this).attr("class", "note active");
-    });
-    $(".note").on("touchend",function() {
-        $(this).attr("class", "note");
-    });
-    $(".note").on("touchstart mousedown",function(event){
+        $(".note").on("touchstart", function () {
+            $(this).attr("class", "note active");
+        });
+        $(".note").on("touchend", function () {
+            $(this).attr("class", "note");
+        });
 
-     //   $(this).attr("class","note pulse");
-        var letter = $(this).attr("data-note");
+    function playNote(letter)
+    {
+        //   $(this).attr("class","note pulse");
+
         var sound = sounds[letter][Math.floor(Math.random()*sounds[letter].length )];
         for(var i=0;i< sounds[letter].length;i++)
         {
-            sounds[letter][i].stop();
+            if(sounds[letter][i].pos() !=0)
+                sounds[letter][i].stop();
         }
         //console.log(sound)
         sound.play();
-        event.preventDefault();
+
         setTimeout(function(){
             $(".note[data-note='" + letter +"']" ).attr("class","note");
         },1500);
+    }
 
-    });
+
+
+        $(".note").on("mousedown touchstart", function (event) {
+
+            playNote($(this).attr("data-note"));
+            //event.preventDefault();
+
+        });
+
     $("body").on("keydown",function(evt){
         evt = evt || window.event;
         var charCode = evt.which || evt.keyCode;

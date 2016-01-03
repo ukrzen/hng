@@ -1,17 +1,17 @@
-.preload
-{
-    left:-10000px;
-    top:-10000px;
-    position:absolute;
 
-}
 *{
+
+
     -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color:transparent;
+}
 }
 html {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
-    -webkit-tap-highlight-color:transparent;
+
+    overflow:hidden;
 }
 .content
 {
