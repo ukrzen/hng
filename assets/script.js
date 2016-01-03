@@ -116,7 +116,7 @@ $(function(){
         $(".note").on("mousedown touchstart", function (event) {
 
             playNote($(this).attr("data-note"));
-            //event.preventDefault();
+            event.preventDefault();
 
         });
 
