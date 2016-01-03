@@ -1,10 +1,17 @@
 $(function(){
-    var NOTES="ABCDEFGH";
+    var NOTES="ABCDEFGHZ";
     var sounds={};
     var width = function(){
         var dpi = window.devicePixelRatio ||1;
         return parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi ;
     };
+    function removeFromArray(array, value) {
+        var idx = array.indexOf(value);
+        if (idx !== -1) {
+            array.splice(idx, 1);
+        }
+        return array;
+    }
     var images=["https://lh3.googleusercontent.com/-XVMcX9Sx26I/Voe2e4WTvoI/AAAAAAAAAjc/9slfuMjOj1U/s" + width() +"-Ic42/background.jpg","assets/hang.png"];
     var preloadedImages=images.length;
     var readyToPlay=false;
@@ -38,6 +45,7 @@ $(function(){
     {
         var notes = NOTES.split("");
         var loadedNotes=notes.length;
+
         if(layer< 10)
         layer= "0" + layer;
         function countHandler()
@@ -47,6 +55,8 @@ $(function(){
                 success();
         }
         notes.forEach(function (letter) {
+
+
             if(!sounds[letter])
                sounds[letter] =[];
 
@@ -55,7 +65,10 @@ $(function(){
                         "samples/" + letter  + layer +  ".wav.ogg"],
 
                     onload:countHandler,
-                    onloaderror:countHandler}));
+                    onloaderror:function(){
+                        countHandler();
+                        sounds[letter]= removeFromArray(sounds[letter],this);
+                    }}));
 
         });
 

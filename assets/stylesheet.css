@@ -94,17 +94,17 @@ svg
 
 }
 
-.note:hover
+path.note:hover
 {
     opacity:0.8;
 
 
 }
-.note.lighter
+path.note.lighter
 {
     fill:url('#lighter-grad');
 }
-.note
+path.note
 {
     fill:url('#rgrad');
     transition:all 0.4s ease;
@@ -114,7 +114,7 @@ svg
 
 }
 
-.note:active,.note.active,.note:focus
+path.note:active,path.note.active,path.note:focus
 {
     fill:url('#ygrad');
     filter:url('#hover');
@@ -182,7 +182,7 @@ footer
     }
 
 }
-.twitter-follow-button
+.twitter--button
  {
      display: inline-block;
      width:            14px;
