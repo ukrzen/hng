@@ -106,7 +106,7 @@ $(function(){
     function loadNextLayer(){
         checkReadyToPlay();
           currentLayer+=1;
-        if(currentLayer < 15)
+        if(currentLayer < 12)
           loadSoundLayer(currentLayer,loadNextLayer);
     }
     loadNextLayer();
@@ -151,6 +151,7 @@ $(function(){
         if(el.length)
         {
             el.trigger("touchstart");
+            el.trigger("mousedown");
         }
     });
     $("body").on("keyup",function(evt){
