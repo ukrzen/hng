@@ -3,7 +3,21 @@ $(function(){
     var sounds={};
     var isTouch = "ontouchstart" in window;
     var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
 
+    function requestFullscreen(element) {
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    }
+
+    if (document.fullscreenEnabled && isTouch) {
+        requestFullscreen(document.documentElement);
+    }
     $("body").addClass(isTouch?"mobile":"desktop");
     if(isTouch)
 
