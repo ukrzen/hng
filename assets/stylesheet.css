@@ -5,6 +5,7 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -webkit-tap-highlight-color:transparent;
+    box-sizing:border-box;
 }
 }
 html {
@@ -49,7 +50,11 @@ svg
         width: auto;
 
     }
-
+    .sad-screen
+    {
+        padding-left:30vw;
+        padding-right:30vw;
+    }
 }
 @media screen and (orientation: portrait) {
     svg {
@@ -58,6 +63,12 @@ svg
         height: auto;
         margin-left:
     }
+    .sad-screen
+    {
+        padding-left:2vw;
+        padding-right:2vw;
+    }
+
 }
 .container
 {
@@ -182,7 +193,7 @@ footer
     }
 
 }
-.twitter--button
+.twitter-button
  {
      display: inline-block;
      width:            14px;
@@ -198,4 +209,69 @@ footer
     width:            14px;
     height:           14px;
     background-size: 100% 100%;
+}
+.sad-screen span
+{
+    display:inline;
+}
+
+.sad-screen
+{
+    position:fixed;
+    z-index:100;
+
+    left:0px;
+    top:0px;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.5);
+    font-size:3vmin;
+    color:white;
+
+    /*text-align:center;*/
+    font-family:'Open Sans Condensed';
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-justify-content: center;
+    justify-content: center;
+
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+body:not(.touch) .ios,body:not(.touch) .non-ios
+{
+    display:none;
+}
+body.touch.ios .ios
+{
+    display:none;
+}
+body.desktop div.desktop
+{
+    display:block;
+}
+body.desktop span.desktop
+{
+    display:inline;
+}
+
+body.mobile .desktop
+{
+    display:none;
+}
+body.desktop .mobile
+{
+    display:none;
+}
+body.mobile div.mobile
+{
+    display:block;
+}
+body.mobile span.mobile
+{
+    display:inline;
 }

@@ -1,7 +1,14 @@
 $(function(){
     var NOTES="ABCDEFGHZ";
     var sounds={};
-    var isTouch = "touchstart" in window;
+    var isTouch = "ontouchstart" in window;
+    var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
+
+    $("body").addClass(isTouch?"mobile":"desktop");
+    if(isTouch)
+
+       $("body").addClass(iOS?"ios":"non-ios")
+
     var width = function(){
         var dpi = window.devicePixelRatio ||1;
         return parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi ;
@@ -13,14 +20,17 @@ $(function(){
         }
         return array;
     }
-    document.body.addEventListener('touchmove', function(event) {
+    $("body").on("touchmove",function(event){
         event.preventDefault();
-    }, false);
+    });
+    //document.body.addEventListener('touchmove', function(event) {
+    //    event.preventDefault();
+    //}, false);
     var images=["https://lh3.googleusercontent.com/-XVMcX9Sx26I/Voe2e4WTvoI/AAAAAAAAAjc/9slfuMjOj1U/s" + width() +"-Ic42/background.jpg","assets/hang.png"];
     var preloadedImages=images.length;
     var readyToPlay=false;
     function checkReadyToPlay(){
-        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >=3)
+        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >3)
         {
             $(".container").css("background-image","url(" + images[0] +")")
             $(".not-ready").removeClass("not-ready");
@@ -70,8 +80,9 @@ $(function(){
 
                     onload:countHandler,
                     onloaderror:function(){
-                        countHandler();
+
                         sounds[letter]= removeFromArray(sounds[letter],this);
+                        countHandler();
                     }}));
 
         });
@@ -81,7 +92,7 @@ $(function(){
     function loadNextLayer(){
         checkReadyToPlay();
           currentLayer+=1;
-        if(currentLayer < 12)
+        if(currentLayer < 15)
           loadSoundLayer(currentLayer,loadNextLayer);
     }
     loadNextLayer();
@@ -97,13 +108,16 @@ $(function(){
     {
         //   $(this).attr("class","note pulse");
 
-        var sound = sounds[letter][Math.floor(Math.random()*sounds[letter].length )];
+        var k = Math.random();
+        //k = realPressure;
+        var sound = sounds[letter][Math.floor(k*sounds[letter].length )];
         for(var i=0;i< sounds[letter].length;i++)
         {
             if(sounds[letter][i].pos() !=0)
                 sounds[letter][i].stop();
         }
         //console.log(sound)
+
         sound.play();
 
         setTimeout(function(){
@@ -111,13 +125,8 @@ $(function(){
         },1500);
     }
 
-
-
-        $(".note").on("mousedown touchstart", function (event) {
-
+        $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
             playNote($(this).attr("data-note"));
-            event.preventDefault();
-
         });
 
     $("body").on("keydown",function(evt){
@@ -141,39 +150,71 @@ $(function(){
 
         }
     });
-    //var ACCELEROMETER_SAMPLES= 25,REJECT_SAMPLES=3;
-    //var counter = ACCELEROMETER_SAMPLES + REJECT_SAMPLES;
-    //var power = 0,x= 0,y= 0,x0= 0,y1= 0,x1= 0;
-    //$("body").on("touchend",function() {
-    //    if(counter < ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;
-    //    alert(power);
-    //    counter = 0;
-    //    power = 0;
-    //});
+
+
+
     //
+    //var CPBPressureNone   =      0.0;
+    //var CPBPressureLight =       0.1;
+    //var  CPBPressureMedium =       0.3;
+    //var  CPBPressureHard    =     0.8;
+    //var CPBPressureInfinite =   2.0;
+    //var   pressureValues =[];
+    //for(var i=0;i<30;i++)
+    //    pressureValues.push(0.0);
+    //
+    //var currentPressureValueIndex =0 ;
+    //var setNextPressureValue = 0;
+    //var KNumberOfPressureSamples=5;
+    //var  minimumPressureRequired =CPBPressureMedium;
+    //var realPressure=0.5;
+    //var maximumPressureRequired= CPBPressureInfinite;
+    //setInterval(function(){
+    //setNextPressureValue=KNumberOfPressureSamples;
+    //},400)
     //window.ondevicemotion = function(event) {
+    //    var sz=30;
+    //    var a = event.acceleration.z;
+    //    pressureValues[currentPressureValueIndex%sz] = a;
     //
-    //    var z = event.accelerationIncludingGravity.z;
-    //    y = filterFactorSlider.value * (y + a - x);
-    //    x = a;
+    //    if (setNextPressureValue > 0) {
     //
-    //    x0 = a;
+    //        // calculate average pressure
+    //        var total = 0.0;
+    //        for (var loop=0; loop<sz; loop++) total += Math.abs(pressureValues[loop]);
+    //        var average = total / sz;
     //
-    //    y0 = -0.5792*x1 + 0.5792*x0 - 0.1584*y1;
+    //        // start with most recent past pressure sample
+    //        if (setNextPressureValue == KNumberOfPressureSamples) {
+    //            var mostRecent = pressureValues[(currentPressureValueIndex-1)%sz];
+    //            pressure = Math.abs(average - mostRecent);
+    //        }
     //
-    //    y1 = y0;
+    //        // caluculate pressure as difference between average and current acceleration
+    //        var diff = Math.abs(average - event.acceleration.z);
+    //        if (pressure < diff) pressure = diff;
+    //        setNextPressureValue--;
     //
-    //    x1 = x0;
+    //        if (setNextPressureValue == 0) {
+    //            if (pressure >= minimumPressureRequired && pressure <= maximumPressureRequired) {
     //
+    //                realPressure=pressure;
+    //                if(realPressure > 2)
+    //                    realPressure=2;
+    //                realPressure = ((realPressure -0.1) /2);
+    //                document.title=realPressure;
+    //                //alert(realPressure);
+    //            }
+    //            else
+    //            {
     //
-    //    if(counter > ACCELEROMETER_SAMPLES + REJECT_SAMPLES) return;  //анализ завершен
-    //    if(counter++ > ACCELEROMETER_SAMPLES -1 ) return; //проверяем диапазон "отдыха" анализатора
-    //    a = Math.abs(y0); // не заморачиваемся знаком ускорения :)
-    //     power += a; // интегрируем
-    //    if(counter == ACCELEROMETER_SAMPLES) {
-    //        power *=Math.pow(power, 1)*1;
-    //        ; // масштабируем скорость
-    //        console.log(power);
+    //            }
+    //        }
     //    }
-    //}
+    //
+    //    currentPressureValueIndex++;
+    //};
+    $(".sad-screen").on("click",function(){
+       $(".sad-screen").hide();
+    });
 });
