@@ -165,7 +165,17 @@ $(function(){
 
         }
     });
+    $(".sad-screen").on("touchend",function(){
 
+            var g_WebAudioContext=Howler.ctx;
+            var buffer = g_WebAudioContext.createBuffer(1, 1, 22050);
+                var source = g_WebAudioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(g_WebAudioContext.destination);
+            source.start(0);
+
+
+    });
 
 
     //
