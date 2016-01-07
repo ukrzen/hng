@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Зіграйте на легендарному інструменті на нашому сайті."/>
 
     <meta name="twitter:domain" content="http://hng.ukrzen.in.ua/"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
     <!--<script src="assets/zepto.touch.js"></script>-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic' rel='stylesheet'
@@ -26,6 +26,7 @@
 
     <meta name="apple-mobile-web-app-title" content="Ханѓ">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--<meta name="viewport" content="width=device-width">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -33,8 +34,24 @@
     <script src="assets/script.js"></script>
 
     <link href="favicon.png" rel="shortcut icon" type="image/png"/>
+    <!--<script src="assets/polyfill/vminpoly.js"></script>-->
+    <style>
+        path.note.lighter
+        {
+            fill:url('#lighter-grad');
+        }
+        path.note
+        {
+            fill:url('#rgrad');
+            filter:url("#blur");
+      }
 
-
+        path.note:active,path.note.active,path.note:focus
+        {
+            fill:url('#ygrad');
+            filter:url('#hover');
+        }
+    </style>
 </head>
 <body>
 
@@ -128,42 +145,42 @@
        d="m 307.47664,127.88785 a 53.271027,57.009346 0 1 1 -6.1e-4,-0.27364 l -53.27042,0.27364 z"
        transform="matrix(1.525902,0,0,-1.3231268,171.38908,504.03877)"
        id="path3753"
-     class="note" data-note="A"  data-key="G"  /><path
+     class="note" data-note="A"  data-key="G"  fill="url(#rgrad)" /><path
        d="m 376.63552,195.17757 a 58.411217,44.859814 0 1 1 -6.7e-4,-0.21533 l -58.41055,0.21533 z"
        transform="matrix(0.34228481,-1.1782894,-1.2324155,-0.3272521,643.68061,937.09249)"
        id="path4545"
-     class="note" data-note="B" data-key="T" />
+     class="note" data-note="B" data-key="T"  fill="url(#rgrad)" />
         <path
        d="m 660.74768,98.448601 a 43.925232,54.672897 0 1 1 -5.1e-4,-0.262424 l -43.92472,0.262424 z"
        transform="matrix(1.2533083,-0.24417566,-0.25539216,-1.1982646,-39.982602,714.39814)"
        id="path4551"
-     class="note" data-note="C"  data-key="Y"  />
+     class="note" data-note="C"  data-key="Y"  fill="url(#rgrad)" />
         <path
        d="m 676.6355,295.17758 a 56.542057,42.990654 0 1 1 -6.5e-4,-0.20635 l -56.54141,0.20635 z"
        transform="matrix(1.0472001,-0.7568964,-0.82097995,-0.96545839,336.02891,1029.5356)"
        id="path4549"
-     class="note" data-note="D"  data-key="H"  />
+     class="note" data-note="D"  data-key="H"  fill="url(#rgrad)" />
 
         <path
        d="m 580.37383,371.81308 a 42.523365,53.271027 0 1 1 -4.9e-4,-0.2557 l -42.52288,0.2557 z"
        transform="matrix(1.0885356,0.66588548,0.67163772,-1.0792128,-182.07323,183.65462)"
        id="path4553"
-     class="note" data-note="E"  data-key="B"  />
+     class="note" data-note="E"  data-key="B"  fill="url(#rgrad)" />
         <path
        d="m 457.00933,390.50467 a 36.91589,46.728973 0 1 1 -4.2e-4,-0.22429 l -36.91547,0.22429 z"
        transform="matrix(1.1105064,-0.60677848,-0.63465158,-1.0617343,274.25584,803.19452)"
        id="path4557"
-     class="note" data-note="F"  data-key="V"  />
+     class="note" data-note="F"  data-key="V"   fill="url(#rgrad)"/>
         <path
        d="m 251.40187,292.37384 a 38.785046,51.401871 0 1 1 -4.5e-4,-0.24672 l -38.7846,0.24672 z"
        transform="matrix(1.0872621,-0.60695832,-0.64656408,-1.020661,331.86503,633.71616)"
        id="path4555"
-     class="note" data-note="G"  data-key="C"  />
+     class="note" data-note="G"  data-key="C"   fill="url(#rgrad)"/>
         <path
        d="m 285.04673,210.13084 a 44.859814,55.140186 0 1 1 -5.1e-4,-0.26466 l -44.8593,0.26466 z"
        transform="matrix(0.78825258,1.2258696,1.2175117,-0.79366374,-75.351772,259.73513)"
        id="path4547"
-     class="note" data-note="H"  data-key="F"  /> </g>
+     class="note" data-note="H"  data-key="F"   fill="url(#rgrad)"/> </g>
 
 </svg>
     </div>
@@ -190,12 +207,17 @@
     <center>
     <h2>Віртуальний Ханѓ®</h2>
     </center>
+        Цей сайт створено, щоб ознайомити вас з музичним інструментом - ханг. Цей молодий
+        Ханг - це дивовижний музичний інструмент, розроблений Феліксом Рохнер і Сабіною Шерер в Швейцарії.
+        <p></p>
+        Тут ви можете пограти на інструменті і відчути його магічне звучання.
+        <p></p>
+        Для цього <span class="desktop">клацайте</span> <span class="mobile">тицяйте</span> по підсвічених областях.
 
-        <span class="desktop">Клацайте</span> <span class="mobile">Тицяйте</span> по підсвічених областях для того, щоб грати на інструменті.
 
 
     <span class="desktop">
-        Або скористайтеся клавіатурою:
+       Також можете скористатися клавіатурою:
         <p></p>
         <center>
     <img src="assets/keyboard.png" style="width:120px">

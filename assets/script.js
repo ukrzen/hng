@@ -4,21 +4,11 @@ $(function(){
     var isTouch = "ontouchstart" in window;
     var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
     document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
+    var simplified=false;
 
-    function requestFullscreen(element) {
-        if (element.requestFullscreen) {
-            element.requestFullscreen();
-        } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if (element.webkitRequestFullScreen) {
-            element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    }
-
-    if (document.fullscreenEnabled && isTouch) {
-        requestFullscreen(document.documentElement);
-    }
     $("body").addClass(isTouch?"mobile":"desktop");
+    if(simplified)
+         $("body").addClass("simple");
     if(isTouch)
 
        $("body").addClass(iOS?"ios":"non-ios")
@@ -34,9 +24,13 @@ $(function(){
         }
         return array;
     }
-    $("body").on("touchmove",function(event){
-        event.preventDefault();
-    });
+    if(!simplified)
+    {
+        $("body").on("touchmove",function(event){
+            event.preventDefault();
+        });
+    }
+
     //document.body.addEventListener('touchmove', function(event) {
     //    event.preventDefault();
     //}, false);
@@ -44,7 +38,7 @@ $(function(){
     var preloadedImages=images.length;
     var readyToPlay=false;
     function checkReadyToPlay(){
-        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >3)
+        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >4)
         {
             $(".container").css("background-image","url(" + images[0] +")")
             $(".not-ready").removeClass("not-ready");
@@ -89,9 +83,9 @@ $(function(){
                sounds[letter] =[];
 
                 sounds[letter].push( new Howl({
-                    urls: ["samples/" + letter  + layer + ".wav.mp3",
+                    src: ["samples/" + letter  + layer + ".wav.mp3",
                         "samples/" + letter  + layer +  ".wav.ogg"],
-
+                    html5:false,
                     onload:countHandler,
                     onloaderror:function(){
 
@@ -106,7 +100,7 @@ $(function(){
     function loadNextLayer(){
         checkReadyToPlay();
           currentLayer+=1;
-        if(currentLayer < 12)
+        if(currentLayer < (simplified? 6:10))
           loadSoundLayer(currentLayer,loadNextLayer);
     }
     loadNextLayer();
@@ -118,7 +112,7 @@ $(function(){
             $(this).attr("class", "note");
         });
 
-    function playNote(letter)
+    var playNote = function (letter)
     {
         //   $(this).attr("class","note pulse");
 
@@ -127,16 +121,16 @@ $(function(){
         var sound = sounds[letter][Math.floor(k*sounds[letter].length )];
         for(var i=0;i< sounds[letter].length;i++)
         {
-            if(sounds[letter][i].pos() !=0)
+            if(sounds[letter][i].playing())
                 sounds[letter][i].stop();
         }
         //console.log(sound)
 
         sound.play();
-
-        setTimeout(function(){
-            $(".note[data-note='" + letter +"']" ).attr("class","note");
-        },1500);
+       //if(simplified)
+        //setTimeout(function(){
+        //    $(".note[data-note='" + letter +"']" ).attr("class","note");
+        //},1500);
     }
 
         $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
@@ -165,17 +159,11 @@ $(function(){
 
         }
     });
-    $(".sad-screen").on("touchend",function(){
-
-            var g_WebAudioContext=Howler.ctx;
-            var buffer = g_WebAudioContext.createBuffer(1, 1, 22050);
-                var source = g_WebAudioContext.createBufferSource();
-            source.buffer = buffer;
-            source.connect(g_WebAudioContext.destination);
-            source.start(0);
-
-
-    });
+    //$(".sad-screen").on("touchend",function(){
+    //    $(".sad-screen").hide();
+    //
+    //
+    //});
 
 
     //
