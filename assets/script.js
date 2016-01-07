@@ -4,7 +4,7 @@ $(function(){
     var isTouch = "ontouchstart" in window;
     var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
     document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
-    var simplified=false;
+    var simplified=location.search.indexOf("simple") !=-1;
 
     $("body").addClass(isTouch?"mobile":"desktop");
     if(simplified)
