@@ -5,7 +5,9 @@ $(function(){
     var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
     document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
     var simplified=location.search.indexOf("simple") !=-1;
-
+    Howler.mobileAutoEnable=false;
+    var isMobile =isTouch;
+    var notesPlayed=0;
     $("body").addClass(isTouch?"mobile":"desktop");
     if(simplified)
          $("body").addClass("simple");
@@ -15,7 +17,7 @@ $(function(){
 
     var width = function(){
         var dpi = window.devicePixelRatio ||1;
-        return parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi ;
+        return parseInt(parseInt(Math.round(($("body").width() / 640),0)) * 640 * dpi) ;
     };
     function removeFromArray(array, value) {
         var idx = array.indexOf(value);
@@ -26,11 +28,12 @@ $(function(){
     }
     if(!simplified)
     {
-        $("body").on("touchmove",function(event){
-            event.preventDefault();
-        });
-    }
 
+    }
+    $("body").on("touchmove",function(event){
+        event.preventDefault();
+    });
+    $(".hello.screen").addClass("ready");
     //document.body.addEventListener('touchmove', function(event) {
     //    event.preventDefault();
     //}, false);
@@ -115,7 +118,9 @@ $(function(){
     var playNote = function (letter)
     {
         //   $(this).attr("class","note pulse");
-
+        notesPlayed++;
+        if(notesPlayed > 10)
+        $("#sound-help").addClass("hidden");
         var k = Math.random();
         //k = realPressure;
         var sound = sounds[letter][Math.floor(k*sounds[letter].length )];
@@ -132,10 +137,23 @@ $(function(){
         //    $(".note[data-note='" + letter +"']" ).attr("class","note");
         //},1500);
     }
+    //    var mobileEnabled=!isTouch;
+    //if(!mobileEnabled)
+    //{
+    //    $(".note").one("mousedown", function (event) {
+    //        if(!mobileEnabled)
+    //        {
+    //            playNote($(this).attr("data-note"));
+    //            mobileEnabled=true;
+    //        }
+    //
+    //    });
+    //}
 
-        $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
-            playNote($(this).attr("data-note"));
-        });
+    $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
+
+        playNote($(this).attr("data-note"));
+    });
 
     $("body").on("keydown",function(evt){
         evt = evt || window.event;
@@ -227,7 +245,30 @@ $(function(){
     //
     //    currentPressureValueIndex++;
     //};
-    $(".sad-screen").on("click",function(){
-       $(".sad-screen").hide();
+
+    $(".hello.screen").on("touchend",function(){
+        if(readyToPlay)
+          playNote("A");
     });
+    $(".sound.screen").on("click",function(){
+        $(".sound.screen").addClass("hidden");
+        $("#sound-help").removeClass("hidden");
+    });
+    $(".hello.screen").on("click",function(){
+        if(readyToPlay)
+        {
+            $(".hello.screen").addClass("hidden");
+            if(isMobile)
+            {
+                $(".sound.screen").addClass("ready");
+            }
+        }
+
+    });
+    $(".help.screen").on("click",function(){
+        $(".help.screen").addClass("hidden");
+    })
+    $("#sound-help").on("click",function(){
+        $(".help.screen").removeClass("hidden");
+    })
 });

@@ -42,6 +42,17 @@ svg
 {
     display:none;
 }
+#sound-help.hidden
+{
+    opacity:0;
+    display:block !important;
+}
+#sound-help
+{
+    position:absolute;
+    opacity:0.6;
+    transition:all 1s ease;
+}
 @media screen and (orientation: landscape) {
     svg {
 
@@ -50,24 +61,40 @@ svg
         width: auto;
 
     }
-    .sad-screen
+    .screen
     {
         padding-left:30vw;
         padding-right:30vw;
     }
+    #sound-help
+    {
+        right:10px;
+        top:10px;
+        min-width:20vw;
+        font-size:5vmin;
+        padding-left:1vw;
+        padding-right:1vw;
+    }
+
 }
 @media screen and (orientation: portrait) {
     svg {
         width:95%;
         width: 95vw;
         height: auto;
-        margin-left:
+
     }
-    .sad-screen
+    .screen
     {
         padding-left:2vw;
         padding-right:2vw;
         font-size:3vh !important;
+    }
+    #sound-help
+    {
+        left:0px;
+        right:0px;
+        top:0px;
     }
 
 }
@@ -194,7 +221,7 @@ footer
     }
 
 }
-.twitter-button
+.twitter-follow-button
 {
     display: inline-block;
     width:            14px;
@@ -211,16 +238,38 @@ footer
     height:           14px;
     background-size: 100% 100%;
 }
-.sad-screen span
+.screen:not(.ready)
 {
+    opacity:0;
+}
+.screen span
+{
+
     display:inline;
 }
+.hidden
+{
+    display:none !important;
+}
+.button
+{
+    background-color:rgba(0,0,0,0.8);
+    border:1px solid rgba(255,255,255,0.4);
+    border-radius:5px;
+    color:white;
+    font-size:5vmin;
+    text-align:center;
 
-.sad-screen
+    padding-top:2vmin;
+    padding-bottom:2vmin;
+
+}
+
+.screen
 {
     position:fixed;
     z-index:100;
-
+    transition:all 0.4s ease;
     left:0px;
     top:0px;
     width:100vw;
@@ -243,14 +292,27 @@ footer
     -webkit-flex-direction: column;
     flex-direction: column;
 }
-body:not(.touch) .ios,body:not(.touch) .non-ios
+body:not(.mobile) .ios,body:not(.mobile) .non-ios
 {
     display:none;
 }
-body.touch.ios .ios
+body.desktop .ios
 {
     display:none;
 }
+body:not(.ios) .ios
+{
+    display:none;
+}
+body.ios .ios
+{
+    display:block;
+}
+body.mobile:not(.ios) .non-ios
+{
+    display:block;
+}
+
 body.desktop div.desktop
 {
     display:block;
@@ -275,4 +337,24 @@ body.mobile div.mobile
 body.mobile span.mobile
 {
     display:inline;
+}
+body:not(.mobile) .mobile-help
+{
+    display:none
+}
+body.mobile .mobile-help
+{
+    display:none
+}
+h2
+{
+    text-align:center;
+}
+.help.screen strong
+{
+    text-align:center;
+    display:block;
+    background-color:rgba(0,0,0,0.6);
+    padding-top:5px;
+    padding-bottom:5px;
 }

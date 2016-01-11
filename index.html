@@ -32,24 +32,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script src="assets/howler.js"></script>
     <script src="assets/script.js"></script>
-
     <link href="favicon.png" rel="shortcut icon" type="image/png"/>
     <!--<script src="assets/polyfill/vminpoly.js"></script>-->
     <style>
-        path.note.lighter
-        {
-            fill:url('#lighter-grad');
+        path.note.lighter {
+            fill: url('#lighter-grad');
         }
-        path.note
-        {
-            fill:url('#rgrad');
-            filter:url("#blur");
-      }
 
-        path.note:active,path.note.active,path.note:focus
-        {
-            fill:url('#ygrad');
-            filter:url('#hover');
+        path.note {
+            fill: url('#rgrad');
+            filter: url("#blur");
+        }
+
+        path.note:active, path.note.active, path.note:focus {
+            fill: url('#ygrad');
+            filter: url('#hover');
         }
     </style>
 </head>
@@ -183,13 +180,16 @@
      class="note" data-note="H"  data-key="F"   fill="url(#rgrad)"/> </g>
 
 </svg>
+        <div id="sound-help" class="button mobile hidden">
+                Проблеми зі звуком
+        </div>
     </div>
 
 
     <footer>
         Семпли: <a href="http://darkarps.com" target="_blank">darkarps.com</a>
         <br>
-        &nbsp; Львів - 2016. <a class="email" href="mailto:h.ukrzen+hng@gmail.com" target="_blank"> Михайло</a> <a
+        &nbsp; Львів - 2016. <a class="email" href="mailto:h.ukrzen+hng@gmail.com" target="_blank"> Пишіть нам</a> <a
             href="https://twitter.com/ukrzen" target="_blank" class="twitter-follow-button email"
             data-show-count="false"></a> <a href="https://www.facebook.com/pages/Ukrzen-In-Ua/643709062402196"
                                             target="_blank" class="fb-button email" data-show-count="false"></a>
@@ -202,36 +202,70 @@
         <span class='st_vkontakte_large' displayText='Vkontakte'></span>
     </div>
 </div>
-<div class="sad-screen">
+<div class="sound screen mobile">
+
     <div>
-    <center>
-    <h2>Віртуальний Ханѓ®</h2>
-    </center>
-        Цей сайт створено, щоб ознайомити вас з музичним інструментом - ханг. Цей молодий
-        Ханг - це дивовижний музичний інструмент, розроблений Феліксом Рохнер і Сабіною Шерер в Швейцарії.
+        <center class="non-ios">
+            <img src="assets/android-sad.png" style="width:120px">
+        </center>
+        <center class="ios">
+            <img src="assets/ios-sad.png" style="width:120px">
+        </center>
         <p></p>
+        <p>Нажаль мобільні пристрої накладають обмеження на відтворення звуку.</p>
+        <p>
+        Якщо після натиску по інструменту нічого не буде чути, буде відчутна затримка між натиском
+        та появою звуку, клацніть по кнопці:
+        </p>
+        <div class="button">
+        Проблеми зі звуком
+        </div>
+    </div>
+</div>
+<div class="help screen mobile ready hidden">
+    <div>
+
+        <strong>Інструмент не видає звук</strong>
+        <ul>
+            <li>Перезавантажте сторінку та спробуйте ще раз.</li>
+            <li>Якщо телефон у беззвучному режимі переведіть його в звичайний режим.</li>
+            <li>Перезавантажте телефон</li>
+        </ul>
+        <strong>Інструмент видає спотворений звук</strong>
+        <ul>
+            <li>Перезавантажте сторінку та спробуйте ще раз.</li>
+        </ul>
+        <div class="non-ios">
+        <strong>Інструмент видає звук зі значною затримкою</strong>
+
+        <ul>
+
+            <li>Відкрийте сайт за допомогою переглядача   <img src="assets/chrome.png" style="max-width:10px"> Google Chrome </li></ul>
+        </div>
+        <strong>Жоден з методів не вирішив вашу проблему?</strong>
+        <p>На жаль мобільні пристрої накладають обмеження, які ми не можемо обійти.
+           Будь ласка спробуйте відкрити сайт на іншому пристрої.</p>
+
+    </div>
+</div>
+<div class="hello screen">
+    <div>
+        <h2>Віртуальний Ханѓ®</h2>
+
         Тут ви можете пограти на інструменті і відчути його магічне звучання.
         <p></p>
         Для цього <span class="desktop">клацайте</span> <span class="mobile">тицяйте</span> по підсвічених областях.
-
-
-
-    <span class="desktop">
-       Також можете скористатися клавіатурою:
-        <p></p>
-        <center>
-    <img src="assets/keyboard.png" style="width:120px">
-        </center>
-    </span>
-    <div class="non-ios">
-    <p></p>
-    <p></p>
-
-    Ми витратили багато часу, щоб наш сайт працював на різних мобільних пристроях.
-    Проте через технічні обмеження це не завжди можливо. Якщо не буде чути звук, дуже гальмуватимиме спробуйте на іншому пристрої або на ноутбуці.
+        <span class="desktop">
+           Також можете скористатися клавіатурою:
+            <p></p>
+            <center>
+                <img src="assets/keyboard.png" style="width:120px">
+            </center>
+        </span>
     </div>
-    </div>
+
 </div>
+
 </body>
 <script>
     (function (i, s, o, g, r, a, m) {
