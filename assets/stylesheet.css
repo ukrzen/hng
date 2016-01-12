@@ -292,6 +292,13 @@ footer
     -webkit-flex-direction: column;
     flex-direction: column;
 }
+body .non-ios
+{
+    display:none;
+}
+
+
+
 body:not(.mobile) .ios,body:not(.mobile) .non-ios
 {
     display:none;
