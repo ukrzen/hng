@@ -7,7 +7,7 @@
     -webkit-tap-highlight-color:transparent;
     box-sizing:border-box;
 }
-}
+
 .note {
     -ms-touch-action: manipulation;
     touch-action: manipulation;
