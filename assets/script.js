@@ -1,13 +1,17 @@
 $(function(){
     var NOTES="ABCDEFGHZ";
     var sounds={};
+    var hangSvgLoaded=false;
     var isTouch = "ontouchstart" in window;
     var iOS=navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
+  //  document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
     var simplified=location.search.indexOf("simple") !=-1;
     Howler.mobileAutoEnable=false;
     var isMobile =isTouch;
     var notesPlayed=0;
+    var isDefaultInstrument=location.search.indexOf("v=2")==-1;
+    var MIN_COUNT_LAYER =isDefaultInstrument? 4:1;
+    var FIRST_LAYER = isDefaultInstrument? 3 : -1;
     $("body").addClass(isTouch?"mobile":"desktop");
     if(simplified)
          $("body").addClass("simple");
@@ -26,10 +30,7 @@ $(function(){
         }
         return array;
     }
-    if(!simplified)
-    {
 
-    }
     $("body").on("touchmove",function(event){
         event.preventDefault();
     });
@@ -37,13 +38,33 @@ $(function(){
     //document.body.addEventListener('touchmove', function(event) {
     //    event.preventDefault();
     //}, false);
-    var images=["https://lh3.googleusercontent.com/-XVMcX9Sx26I/Voe2e4WTvoI/AAAAAAAAAjc/9slfuMjOj1U/s" + width() +"-Ic42/background.jpg","assets/hang.png"];
+    var images=["assets/background.jpg","assets/hang.png"];
     var preloadedImages=images.length;
     var readyToPlay=false;
+    $(".container").load("assets/hang.min.svg",function(){
+        hangSvgLoaded=true;
+        $(".note").on("touchstart", function () {
+            $(this).attr("class", "note active");
+        });
+        $(".note").on("touchend", function () {
+            $(this).attr("class", "note");
+        });
+        $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
+
+            playNote($(this).attr("data-note"));
+        });
+        $("#sound-help").appendTo(".container");
+        checkReadyToPlay();
+    });
+    //$.get("assets/hang.svg",function(svg){
+    //    $(svg).find("svg").prependTo(".container")
+    //    hangSvgLoaded=true;
+    //    checkReadyToPlay();
+    //});
     function checkReadyToPlay(){
-        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >4)
+        if(readyToPlay ==false && preloadedImages ==0 && currentLayer >MIN_COUNT_LAYER && hangSvgLoaded)
         {
-            $(".container").css("background-image","url(" + images[0] +")")
+            $(".container").css("background-image","url(" + images[0] +")");
             $(".not-ready").removeClass("not-ready");
             $("svg").attr("class","");
             readyToPlay=true;
@@ -86,9 +107,8 @@ $(function(){
                sounds[letter] =[];
 
                 sounds[letter].push( new Howl({
-                    src: ["samples/" + letter  + layer + ".wav.mp3",
-                        "samples/" + letter  + layer +  ".wav.ogg"],
-                    html5:false,
+                    src: ["samples/mp3/" +(isDefaultInstrument? "" : "2/") + letter  + layer + ".mp3",
+                        "samples/ogg/" + (isDefaultInstrument? "" : "2/") + letter  + layer +  ".ogg"],
                     onload:countHandler,
                     onloaderror:function(){
 
@@ -99,21 +119,16 @@ $(function(){
         });
 
     }
-    var currentLayer=3;
+    var currentLayer=FIRST_LAYER;
     function loadNextLayer(){
         checkReadyToPlay();
           currentLayer+=1;
-        if(currentLayer < (simplified? 6:10))
+        if(currentLayer < (simplified? 6:6))
           loadSoundLayer(currentLayer,loadNextLayer);
     }
     loadNextLayer();
 
-        $(".note").on("touchstart", function () {
-            $(this).attr("class", "note active");
-        });
-        $(".note").on("touchend", function () {
-            $(this).attr("class", "note");
-        });
+
 
     var playNote = function (letter)
     {
@@ -124,11 +139,11 @@ $(function(){
         var k = Math.random();
         //k = realPressure;
         var sound = sounds[letter][Math.floor(k*sounds[letter].length )];
-        for(var i=0;i< sounds[letter].length;i++)
-        {
-            if(sounds[letter][i].playing())
-                sounds[letter][i].stop();
-        }
+        //for(var i=0;i< sounds[letter].length;i++)
+        //{
+        //    if(sounds[letter][i].playing())
+        //        sounds[letter][i].stop();
+        //}
         //console.log(sound)
 
         sound.play();
@@ -150,10 +165,7 @@ $(function(){
     //    });
     //}
 
-    $(".note").on(isTouch?"touchstart":"mousedown", function (event) {
 
-        playNote($(this).attr("data-note"));
-    });
 
     $("body").on("keydown",function(evt){
         evt = evt || window.event;
